@@ -60,7 +60,7 @@ There is no official booking process according to all 10 students interviewed.
 
 ### 3.2 Current workflow diagram
 
-<escape>
+```text
 Student wants to play
         |
         v
@@ -68,21 +68,22 @@ Goes to the sports ground
         |
         v
 Is the ground available?
-       / \
-     Yes  No
-      |    |
-      v    v
-  Start   Join the ongoing
-  playing game or wait
-      |    |
-      |    v
-      | Ground becomes available
-      |    |
-      +----+
+        |
+   +----+----+
+   |         |
+  Yes        No
+   |         |
+   |         v
+   |   Join the ongoing game or wait until it finishes
+   |         |
+   |         v
+   |   Ground becomes available
+   |         |
+   +----+----+
         |
         v
-   Play the sport
-</escape>
+  Play the sport
+```
 
 ### 3.3 Evidence summary
 
@@ -129,7 +130,56 @@ The platform would introduce a structured scheduling process while preserving th
 
 This workflow is the proposed design; it is not a description of a system that has already been deployed.
 
-### 5.3 Proposed booking rules
+### 5.3 Proposed workflow diagram
+
+```text
+Student opens the booking application
+        |
+        v
+Selects the sport and ground
+        |
+        v
+Views available and booked slots
+(closures entered by the sports club are shown as unavailable)
+        |
+        v
+Selects date and start time (maximum one hour)
+        |
+        v
+Application validates the request:
+ - slot is free (no overlapping confirmed booking)
+ - duration is no longer than one hour
+ - slot is not inside an authorized closure
+        |
+   +----+----------------+
+   |                     |
+  Valid               Not valid
+   |                     |
+   |                     v
+   |        Application shows the reason
+   |        and the student picks another slot
+   |        (returns to "Selects date and start time")
+   v
+Booking confirmed and recorded
+(date, ground, start time, end time, status)
+        |
+        +--------------------------+
+        |                          |
+        v                          v
+Student uses the ground      Student cancels the booking
+during the reserved hour     before it starts
+        |                          |
+        v                          v
+Booking ends  ------>  Slot is released and shown as available
+
+Sports club representative (separate path):
+ - enters closures and updates ground availability
+ - resolves disputes and exceptional cases
+ - if the application is unavailable, follows the fallback procedure
+   agreed with the sports club
+```
+
+### 5.4 Proposed booking rules
 
 - Each booking may last for a maximum of one hour.
 - A ground cannot have two overlapping confirmed bookings.
@@ -140,7 +190,7 @@ This workflow is the proposed design; it is not a description of a system that h
 - The sports club should be able to manage ground availability and resolve disputes or exceptional cases.
 - Booking limits, cancellation deadlines, repeat bookings and any priority rules should be finalized with the sports club before implementation.
 
-### 5.4 Handling existing games and informal use
+### 5.5 Handling existing games and informal use
 
 The proposed platform must account for the existing practice of students joining games or waiting for an occupied ground to become free.
 
@@ -148,7 +198,7 @@ Before launch, the sports club should establish how scheduled bookings interact 
 
 The application should communicate these rules clearly. It should not automatically remove students from an ongoing game or claim that a ground is available unless the applicable scheduling rules support that status.
 
-### 5.5 Sports-club coordination
+### 5.6 Sports-club coordination
 
 The sports-club head's feedback supports the usefulness of exploring this proposal. Before implementation, the sports club should confirm the booking policy, authorized administrators, ground list, slot schedule, exception handling and process for handling disputes.
 
