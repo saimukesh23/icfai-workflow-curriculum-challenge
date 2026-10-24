@@ -1,12 +1,13 @@
-
-# Task 1: Digital Sports Ground Booking Platform — Workflow Investigation and Proposal
+# Task 1: Digital Sports Ground Booking Platform — Workflow Investigation, Proposal and MVP
 
 **Institution:** ICFAI Foundation for Higher Education, Hyderabad  
 **Investigator:** N. Sai Mukesh  
 **Investigation period:** 21–24 October 2026  
 **Report date:** 24 October 2026  
-**Version:** 2.0  
-**Status:** Investigation and proposal; implementation and testing pending
+**Version:** 2.1  
+**Status:** Investigation completed; MVP deployed; feature verification and testing in progress
+
+**Live MVP:** https://ground-booking.streamlit.app/
 
 ---
 
@@ -14,15 +15,19 @@
 
 This investigation examines how students at ICFAI Hyderabad currently access sports grounds for recreational activities, including football, basketball, volleyball and cricket.
 
-Over three days, the investigator conducted informal conversations with 10 students and documented the findings in handwritten notes. All 10 students reported that there is no official ground-booking process. Students generally go to the ground and play if it is available. If other students are already playing, they either join the ongoing game or wait until it finishes.
+Over three days, the investigator conducted informal conversations with 10 students and documented the findings in handwritten notes. All 10 students reported that there is no official ground-booking process. Students generally visit the ground and play if it is available. If other students are already playing, they either join the ongoing game or wait until it finishes.
 
-The investigator also discussed the proposed solution with a friend who heads the sports club. The sports-club head agreed that a digital booking platform would be helpful.
+The investigator also discussed the proposed solution with a friend who heads the sports club. The sports-club head agreed that a digital booking platform would be helpful. This informal feedback supports further exploration but does not constitute formal institutional approval.
 
-Based on these findings, this report proposes a digital sports ground booking platform that enables students to view availability and reserve a ground for a maximum of one hour per booking. The sports-club team would coordinate ground availability, manage closures during tournaments and handle operational exceptions.
+Based on these findings, the investigator developed a digital sports ground booking MVP and deployed it on Streamlit.
 
-The proposal also defines functional requirements, access rules, synthetic test cases, risks and an evaluation plan. It distinguishes the findings collected during the investigation from proposed features and outcomes that still need to be tested.
+**Live application:** https://ground-booking.streamlit.app/
 
-The recommended next step is to validate the booking and access policies with the sports club, develop a limited prototype and evaluate whether it improves coordination without introducing excessive administrative work.
+The intended workflow allows students to view ground availability and reserve a suitable time slot. The current booking-duration requirement is a minimum of 30 minutes and a maximum of 60 minutes. The deployed application must be tested to confirm that these limits and the other intended booking constraints are enforced correctly.
+
+This report distinguishes the original investigation findings, proposed operating policies, the current MVP and functionality that still requires verification. The accompanying `testcase.csv` records the designed test scenarios and their verification status.
+
+The next step is to verify the deployed application's behaviour, document incomplete functionality, resolve defects and evaluate whether the MVP is suitable for a limited pilot. No improvement in waiting time, booking conflicts or administrative effort is claimed without measured evidence.
 
 ## 2. Investigation Objective and Scope
 
@@ -38,9 +43,10 @@ The investigation and proposal cover:
 - How students determine whether a ground is available.
 - What students do when a ground is occupied.
 - The absence of an official booking process, as reported by the interviewed students.
-- A proposed digital booking workflow with a maximum duration of one hour.
+- A digital booking workflow with a minimum duration of 30 minutes and a maximum duration of 60 minutes.
 - Sports-club coordination, tournament closures and dispute handling.
-- Functional requirements, test scenarios and a plan for evaluating the proposed system.
+- Functional requirements, test scenarios and an evaluation plan.
+- Development and deployment of an MVP, with further feature verification in progress.
 
 The sports covered include football, basketball, volleyball, cricket and other activities that use campus sports grounds.
 
@@ -102,9 +108,9 @@ Is the ground available?
 | E02 | Student accounts of the existing access process | Students generally go to the ground and play if it is available. |
 | E03 | Student accounts of occupied grounds | Students either join the ongoing game or wait until it finishes. |
 | E04 | Discussion with a friend who heads the sports club | The sports-club head agreed that a digital booking platform would be helpful. |
-| E05 | Investigator's proposed solution | An application allowing students to book a ground for a maximum of one hour per booking. |
+| E05 | Investigator's proposed solution | An application allowing students to book a ground for 30–60 minutes. |
 
-The student conversations were recorded in handwritten notes. E01–E03 summarize the aggregate findings from those conversations; they should not be interpreted as three separate sets of interviews. E05 is a proposed solution, not an observed finding.
+The student conversations were recorded in handwritten notes. E01–E03 summarize aggregate findings from those conversations; they should not be interpreted as three separate sets of interviews. E05 is a proposed solution, not an observed finding.
 
 ### 3.4 Evidence Limitations
 
@@ -126,35 +132,50 @@ A digital booking platform could provide a shared schedule and make reservations
 
 However, software alone cannot resolve every access issue. The sports club must agree on how confirmed reservations interact with ongoing games, tournament closures and students who arrive without a booking.
 
-## 5. Proposed Solution: Digital Sports Ground Booking Platform
+## 5. Solution Design and Implemented MVP
 
 ### 5.1 Overview
 
-Develop a digital application through which students can:
+The proposed digital sports ground booking platform is intended to allow students to:
 
 - View sports grounds and their availability.
 - Select a sport, ground, date and time.
-- Reserve an available slot for a maximum of one hour.
+- Reserve an available slot for a duration of 30–60 minutes.
 - Receive a booking confirmation.
-- Review or cancel their reservations according to the approved policy.
+- Review or cancel reservations according to the approved policy.
 - Access the designated sports-club contact for complaints or booking disputes.
 
 The sports-club team would maintain the schedule, coordinate tournament closures and resolve operational exceptions.
 
-The platform is a proposal. It has not been represented as a deployed or tested application.
+### 5.2 Current MVP and Deployment
 
-### 5.2 Proposed Booking Workflow
+A web-based MVP has been developed and deployed using Streamlit Community Cloud.
+
+- **Live application:** https://ground-booking.streamlit.app/
+- **Main application file:** `Task-1/app.py`
+- **Dependency file:** `Task-1/requirements.txt`
+- **Test-case register:** `Task-1/testcase.csv`
+
+The MVP demonstrates the current implementation of the booking workflow. Its deployment establishes that a hosted application has been published, but deployment alone does not establish that every functional requirement works correctly.
+
+Feature-level verification should be conducted against the test scenarios in `testcase.csv`. The results should distinguish tests that have passed, tests that have failed, tests that have not yet been run and requirements awaiting stakeholder approval.
+
+The application is described as an MVP rather than a production-ready campus booking system. Any functionality that is incomplete, untested or dependent on an unresolved sports-club policy must be identified explicitly.
+
+### 5.3 Intended Booking Workflow
 
 1. **Open the application:** A student accesses the sports ground booking platform.
 2. **Select a sport and ground:** The student chooses the required sport and corresponding ground.
-3. **View availability:** The application displays available slots, confirmed bookings and authorized closures.
+3. **View availability:** The application displays available slots, confirmed bookings and authorized closures, where implemented.
 4. **Select a time slot:** The student selects a date and start time.
-5. **Validate the request:** The application checks that the required details are present, the duration does not exceed one hour, the slot is available and no authorized closure applies.
-6. **Confirm the booking:** If validation succeeds, the application records the reservation and displays a confirmation.
-7. **Use the ground:** The student or group uses the ground during the reserved period, subject to the access policy approved by the sports club.
+5. **Validate the request:** The application should check that the required details are present, the duration is within 30–60 minutes, the slot is available and no authorized closure applies.
+6. **Confirm the booking:** If validation succeeds, the application records the reservation and displays confirmation.
+7. **Use the ground:** The student or group uses the ground during the reserved period, subject to the policy approved by the sports club.
 8. **Complete or cancel:** At the end of the reservation, or after an eligible cancellation, the slot becomes available according to the platform's rules.
 
-### 5.3 Proposed Workflow Diagram
+This describes the intended workflow. Each step must be verified against the deployed application before it is reported as implemented and working.
+
+### 5.4 Proposed Workflow Diagram
 
 ```text
 Student opens the booking application
@@ -167,11 +188,12 @@ Student opens the booking application
                  |
                  v
        Selects date and start time
-         (maximum duration: 1 hour)
+       (duration: 30–60 minutes)
                  |
                  v
        Application validates request
        - Required details are present
+       - Duration is within permitted limits
        - Slot is available
        - No overlapping booking exists
        - No authorized closure applies
@@ -205,11 +227,11 @@ Separate sports-club workflow:
   if the application is unavailable
 ```
 
-### 5.4 Proposed Booking and Access Rules
+### 5.5 Proposed Booking and Access Rules
 
-The following rules are proposed for approval before implementation.
+The following rules require approval before the application is used as an official campus booking system.
 
-1. **Maximum duration:** Each booking may last no longer than one hour.
+1. **Duration:** Each booking must last at least 30 minutes and no longer than 60 minutes.
 2. **No overlapping reservations:** The same ground cannot have two overlapping confirmed bookings.
 3. **Required details:** A booking must contain the student identifier or approved account, sport, ground, date, start time and end time.
 4. **Confirmation:** A reservation is considered confirmed only after the system successfully records it.
@@ -218,9 +240,9 @@ The following rules are proposed for approval before implementation.
 7. **Tournament closures:** The sports-club team must be informed of tournaments in advance and must close affected grounds or slots in the application for the relevant period.
 8. **Disputes:** The application should provide the sports-club president's contact number, subject to permission to publish it, so students can call or WhatsApp with their booking confirmation as supporting evidence.
 9. **System failure:** If the application is unavailable, students should follow a fallback procedure agreed upon with the sports club rather than relying on an unverified booking status.
-10. **Policy approval:** Booking limits, cancellation deadlines, repeat bookings, no-show handling and any priority rules must be finalized with the sports club.
+10. **Policy approval:** Cancellation deadlines, repeat bookings, no-show handling and priority rules must be finalized with the sports club.
 
-### 5.5 Handling Existing Games and Walk-Up Access
+### 5.6 Handling Existing Games and Walk-Up Access
 
 The proposed application must account for the existing practice of students joining games or waiting for an occupied ground to become free.
 
@@ -234,7 +256,7 @@ The proposed access policy is:
 
 This policy changes the current informal arrangement and therefore requires explicit approval and communication by the sports club before launch. The application cannot enforce this rule physically; operational coordination is still necessary.
 
-### 5.6 Sports-Club Responsibilities
+### 5.7 Sports-Club Responsibilities
 
 The sports club would be the proposed operational owner of the platform.
 
@@ -258,7 +280,7 @@ The sports-club head's feedback supports exploring the proposal. It does not, by
 | FR01 | Display available sports grounds | Helps students identify suitable grounds. |
 | FR02 | Display available, booked and closed time slots | Reduces uncertainty about scheduled use. |
 | FR03 | Allow selection of sport, ground, date and time | Captures the intended booking. |
-| FR04 | Enforce a maximum booking duration of one hour | Implements the proposed booking limit. |
+| FR04 | Enforce a minimum duration of 30 minutes and a maximum duration of 60 minutes | Implements the updated booking-duration rule. |
 | FR05 | Prevent overlapping confirmed bookings for the same ground | Avoids conflicting reservations. |
 | FR06 | Provide booking confirmation and status | Gives students a clear record of their reservation. |
 | FR07 | Allow cancellation under the approved policy | Enables unused slots to be released. |
@@ -268,35 +290,54 @@ The sports-club head's feedback supports exploring the proposal. It does not, by
 | FR11 | Display an approved sports-club contact method | Provides an escalation route for complaints. |
 | FR12 | Handle failed submissions without falsely confirming a booking | Reduces uncertainty and duplicate submissions. |
 
-These are proposed functional requirements. They should be validated with the sports club before development.
+These are proposed functional requirements. They must be compared against the current implementation and validated with the sports club before the application is used operationally.
 
-## 7. Synthetic Test Cases and Acceptance Criteria
+## 7. Test Cases and Acceptance Criteria
 
-The following are **synthetic test cases** describing expected behaviour for a future prototype. They are designed scenarios, not evidence from actual users and not tests that have been executed against a working application.
+### 7.1 Test-Case Register
 
-| Test ID | Scenario | Expected result | Recovery or next step |
-|---|---|---|---|
-| T01 — Normal request | A student supplies all required details and requests an available 60-minute slot. | The application confirms the booking if the slot remains available and all rules are satisfied. | Display the confirmation and booking details. |
-| T02 — Missing information | A student submits a request without a required field, such as the ground, date or start time. | The application rejects the incomplete request and identifies the missing information. | Ask the student to complete the required fields and resubmit. |
-| T03 — Duplicate or conflicting booking | Two students request overlapping times on the same ground, or a student submits the same request twice. | Only one conflicting reservation may become confirmed. A repeated submission must not create a second unintended booking. | Show that the slot is no longer available or display the existing booking status; allow selection of another slot. |
-| T04 — Unauthorized request | A student attempts to change official ground availability, or requests a slot during a tournament closure. | The system denies unauthorized schedule changes and prevents reservations during authorized closures. | Direct the student to choose another available slot. Refer exceptional access requests to an authorized sports-club representative. |
-| T05 — Failed step or technical error | The application fails during booking submission, or the connection is interrupted before the student sees a result. | The application must not display a false confirmation or create duplicate reservations when the student retries. | The student checks booking status before retrying. If the status remains unclear, the sports club verifies the record and uses the agreed fallback process. |
+The file `Task-1/testcase.csv` records the test scenarios, preconditions, test actions, expected results, recovery steps, decision responsibilities and status.
 
-### 7.1 Acceptance Criteria
+The scenarios include:
 
-The prototype should meet these criteria before a pilot:
+- Normal booking requests.
+- Missing required information.
+- Duplicate or overlapping booking attempts.
+- Unauthorized requests.
+- Booking submission failures.
+- Requests below the 30-minute minimum.
+- Requests exceeding the 60-minute maximum.
 
-- A valid request for an available slot of up to 60 minutes can be recorded and confirmed.
-- Requests exceeding 60 minutes are rejected.
+These are designed test scenarios. A defined test case is not evidence that the deployed application has passed it.
+
+### 7.2 Acceptance Criteria
+
+The MVP should meet the following criteria before a pilot:
+
+- A valid request for an available slot lasting between 30 and 60 minutes can be recorded and confirmed.
+- Requests shorter than 30 minutes are rejected.
+- Requests longer than 60 minutes are rejected.
 - Missing required details produce a clear validation message.
 - Conflicting confirmed bookings cannot be created for the same ground and time.
-- Students cannot create official closures or change administrative schedules without authorization.
-- Slots closed for tournaments cannot be booked.
+- Students cannot create official closures or change administrative schedules without authorization, if schedule administration is supported.
+- Slots closed for tournaments cannot be booked, if tournament closures are implemented.
 - A failed submission does not result in an incorrect confirmation or unintended duplicate.
-- Booking status can be checked and a cancellation is reflected in the schedule.
-- The approved sports-club contact and fallback instructions are available to students.
+- Booking status can be checked and a cancellation is reflected in the schedule, if these features are implemented.
+- The approved sports-club contact and fallback instructions are available to students before an official launch.
 
-Each test must be run against the implemented application, with the actual result recorded as pass or fail. No test is reported as passed in this investigation.
+Each test must be run against the implemented application, with the actual result recorded as pass or fail. Tests that have not been executed must remain pending. Requirements that are not implemented must be documented as incomplete rather than passed.
+
+### 7.3 Test Status Definitions
+
+| Status | Meaning |
+|---|---|
+| Passed | The test was executed and the observed result matched the expected result. |
+| Failed | The test was executed and the observed result did not match the expected result. |
+| Pending verification | The test has not yet been executed or its outcome has not been documented. |
+| Blocked | The test cannot be completed because a dependency, policy or feature is unavailable. |
+| Awaiting policy approval | The expected behaviour depends on a rule that has not been formally approved. |
+
+The test-case register should use these meanings consistently.
 
 ## 8. Expected Benefits and Evaluation Plan
 
@@ -308,7 +349,7 @@ The proposed platform is intended to:
 - Allow students to plan sports activities before arriving.
 - Reduce uncertainty about whether a ground is reserved.
 - Prevent conflicting reservations through validation.
-- Establish a clear one-hour maximum booking period.
+- Enforce a booking-duration range of 30–60 minutes.
 - Improve coordination between students and the sports club.
 - Provide a record that can support complaint resolution.
 - Make tournament-related closures visible in the schedule.
@@ -333,7 +374,7 @@ Waiting time and unsuccessful visits should be recorded before and during the pi
 
 ### 8.3 Net Time-Saving Estimate
 
-Net time savings should include not only the time saved by students or staff but also the extra time needed to operate the application.
+Net time savings should include not only the time saved by students or staff but also the additional time needed to operate the application.
 
 **Formula:**
 
@@ -355,7 +396,7 @@ The pilot should collect real baseline and post-implementation data before makin
 
 ### 8.4 Cost-Effectiveness
 
-The initial implementation should prioritize core functionality: ground selection, availability display, one-hour booking validation, conflict prevention, confirmation, schedule administration and complaint escalation.
+The initial implementation should prioritize core functionality: ground selection, availability display, duration validation, conflict prevention, confirmation, schedule administration and complaint escalation.
 
 The platform's value should be assessed against development, hosting, maintenance and administrative costs. A simple application using standard scheduling rules and database constraints may be sufficient for the initial use case.
 
@@ -379,7 +420,7 @@ Adding AI to the booking process would introduce complexity without a demonstrat
 | Schedule information is outdated | Restrict schedule updates to authorized representatives and retain a record of changes. |
 | Tournament closures are not entered in time | Establish an advance notification process between tournament organizers and the sports-club team. |
 | Students make bookings they do not use | Establish reasonable cancellation and no-show rules with the sports club. |
-| Unauthorized users modify official schedules | Apply authentication and role-based access control. |
+| Unauthorized users modify official schedules | Apply authentication and role-based access control where administrative features are implemented. |
 | A booking conflict becomes a dispute | Provide the approved sports-club contact and a process for checking booking confirmation. |
 | Technical failure prevents access to booking information | Establish a fallback procedure and avoid treating an unverified request as confirmed. |
 | Administrative effort becomes excessive | Start with a limited pilot and compare the additional effort with the measured benefits. |
@@ -397,13 +438,27 @@ The investigation did not include:
 - Measured waiting times or unsuccessful visits.
 - Booking-demand statistics by sport or ground.
 - A detailed cost analysis.
-- A deployed application.
-- Executed software tests.
 - Formal institutional approval of the proposed access rules.
+- Evidence that the proposed policy has been adopted by the sports club.
 
-The evidence supports the conclusion that the interviewed students described ground access as informal and that the sports-club head considered a digital booking platform helpful. It does not establish that every student experiences the same problems or that the proposed application will necessarily reduce waiting time.
+The evidence supports the conclusion that the interviewed students described ground access as informal and that the sports-club head considered a digital booking platform helpful. It does not establish that every student experiences the same problems or that the application will necessarily reduce waiting time.
 
-### 10.2 When Should the Proposal Be Changed or Abandoned?
+### 10.2 MVP and Testing Limitations
+
+The application is deployed, but its deployment does not establish that every intended feature works correctly.
+
+The following limitations must be recorded according to the actual state of the implementation and testing:
+
+- Features that are implemented but have not been tested.
+- Features that are partially implemented or incomplete.
+- Tests that have not been executed.
+- Defects discovered during testing.
+- Booking and access policies awaiting sports-club approval.
+- Any limits affecting persistence, concurrency, authentication, administration or recovery from technical failures, if applicable to the implementation.
+
+These items should be confirmed by inspecting the application and executing the test cases. This report does not claim that every listed functional requirement is implemented or passed.
+
+### 10.3 When Should the Proposal Be Changed or Abandoned?
 
 The proposal should be reviewed after consultation or a pilot if any of the following conditions occur:
 
@@ -418,23 +473,23 @@ The proposal should be reviewed after consultation or a pilot if any of the foll
 
 Possible responses include simplifying the workflow, changing booking policies, running a smaller pilot or discontinuing the application if the evidence does not justify it.
 
-
 ## 11. Conclusion and Recommended Next Steps
 
 The investigation found that all 10 students interviewed described a walk-up process rather than an official ground-booking system. Students generally go to the ground and play if it is available; if others are playing, they either join them or wait until the game finishes. The sports-club head agreed that a digital booking platform would be helpful.
 
-The proposed platform would allow students to view availability, book a ground for up to one hour, receive confirmation and refer disputes to the sports club. The sports-club team would coordinate availability and close affected slots during tournaments.
+A digital sports ground booking MVP has been developed and deployed on Streamlit. The intended platform allows students to view availability, book a ground for 30–60 minutes, receive confirmation and refer disputes to the sports club. The sports-club team would coordinate availability and close affected slots during tournaments.
 
 The next steps are:
 
-1. Present the proposed workflow and rules to the sports club.
-2. Obtain agreement on booking priority, walk-up access, tournament closures, cancellations and dispute handling.
-3. Confirm the list of grounds, authorized administrators and permitted booking periods.
-4. Develop a small prototype focused on availability, booking validation, conflict prevention and confirmation.
-5. Execute and document the synthetic acceptance tests.
-6. Run a limited pilot if the relevant stakeholders approve it.
-7. Compare baseline and pilot data to evaluate usage, conflicts, administrative effort and student feedback.
-8. Continue, modify or discontinue the system based on the results.
+1. Verify that the deployed Streamlit application loads and supports its currently implemented workflow.
+2. Execute the test scenarios in `testcase.csv` and record the actual results.
+3. Test the 30-minute minimum and 60-minute maximum booking-duration boundaries.
+4. Test missing information, overlapping booking attempts and submission failures where the relevant features are implemented.
+5. Fix identified defects and document incomplete functionality.
+6. Obtain the sports club's approval for booking priority, walk-up access, tournament closures, cancellations and dispute handling.
+7. Conduct a limited pilot only if the relevant stakeholders approve it.
+8. Measure usage, conflicts, administrative effort and student feedback before claiming that the platform improves the existing process.
+9. Continue, modify or discontinue the system based on the results.
 
 The proposal should be considered successful only if a pilot demonstrates practical value and the sports club can maintain the schedule and access rules reliably.
 
@@ -447,17 +502,23 @@ The investigation is supported by:
 - Handwritten notes from conversations with 10 students conducted during the investigation period.
 - Notes from the discussion with the sports-club head.
 - The current-state workflow documented in this report.
-- The proposed booking workflow, functional requirements and synthetic acceptance-test plan.
+- The proposed booking workflow and functional requirements.
+- The deployed MVP at https://ground-booking.streamlit.app/
+- The application's source file, `Task-1/app.py`.
+- The dependency file, `Task-1/requirements.txt`.
+- The test-case register, `Task-1/testcase.csv`.
 
 No individual student names or fabricated quotations are included. The evidence summary records aggregate findings rather than attributing unsupported statements to specific students.
 
-## Appendix B: Items Requiring Confirmation Before Implementation
+Application screenshots, test outputs and deployment logs should be added only when they have actually been captured. The deployed URL should be tested from a normal browser session before the final submission.
+
+## Appendix B: Items Requiring Confirmation Before Official Implementation
 
 | Item | Required confirmation |
 |---|---|
 | Ground inventory | Which grounds and sports can be booked? |
 | Booking schedule | Which days and times are available for recreational use? |
-| Booking limit | Is the one-hour maximum approved? |
+| Booking duration | Is the 30–60 minute duration range approved? |
 | Booking priority | Must a group using a ground leave when a valid booking holder arrives? |
 | Tournament handling | Who informs the sports club, and how far in advance must closures be entered? |
 | Administrative access | Which sports-club representatives can update the schedule? |
@@ -467,3 +528,13 @@ No individual student names or fabricated quotations are included. The evidence 
 | Pilot approval | Who authorizes the pilot, and how will its results be evaluated? |
 
 These items are unresolved implementation decisions, not facts established by the investigation.
+
+## Appendix C: Individual Contribution and AI Use
+
+The investigator conducted the informal student conversations, recorded the aggregate findings, discussed the proposed solution with a friend who heads the sports club, designed the booking workflow and requirements, developed the MVP, deployed it on Streamlit and prepared the supporting report and test-case register.
+
+AI tools were used as assistance for brainstorming, drafting, structuring and reviewing parts of the proposal. AI assistance is not treated as evidence of student interviews, stakeholder approval, application functionality or executed tests.
+
+Any AI-generated suggestions incorporated into the report should be reviewed by the investigator. Application behaviour should be verified by executing the relevant test cases, and unresolved policy decisions should be confirmed with the sports club before an official pilot.
+
+The investigator remains responsible for the accuracy of the report, the implementation claims and the evidence submitted.
