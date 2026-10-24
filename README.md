@@ -82,13 +82,11 @@ AI assistance is not evidence that code executes correctly, tests pass, a model 
 
 ## Review Release and Commit
 
-**Repository:** [https://github.com/saimukesh23/icfai-workflow-curriculum-challenge](https://github.com/saimukesh23/icfai-workflow-curriculum-challenge)
+**Repository:** [icfai-workflow-curriculum-challenge](https://github.com/saimukesh23/icfai-workflow-curriculum-challenge)
 
-**Release tag:** To be linked after creating the final named GitHub release.
+**Release tag:** `v1.0.0`
 
-**Release URL:** To be added after the release is published.
-
-**Full commit URL for review:** To be added for the exact commit included in that release.
+**Release URL:** https://github.com/saimukesh23/icfai-workflow-curriculum-challenge/releases/tag/v1.0.0
 
 **Submission date:** 24 October 2026.
 
