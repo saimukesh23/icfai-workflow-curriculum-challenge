@@ -1,22 +1,28 @@
-# Task 1: Digital Sports Ground Booking Platform - Workflow Investigation and Proposal
+
+# Task 1: Digital Sports Ground Booking Platform — Workflow Investigation and Proposal
 
 **Institution:** ICFAI Foundation for Higher Education, Hyderabad  
 **Investigator:** N. Sai Mukesh  
 **Investigation period:** 21–24 October 2026  
 **Report date:** 24 October 2026  
-**Version:** 1.1
+**Version:** 2.0  
+**Status:** Investigation and proposal; implementation and testing pending
+
+---
 
 ## 1. Executive Summary
 
 This investigation examines how students at ICFAI Hyderabad currently access sports grounds for recreational activities, including football, basketball, volleyball and cricket.
 
-Over the three days preceding this report, the investigator conducted informal conversations with 10 students and documented the findings in handwritten notes. All 10 students reported that there is no official ground-booking process. Students generally go to the ground and play if it is available. If other students are already playing, they either join the ongoing game or wait until it finishes.
+Over three days, the investigator conducted informal conversations with 10 students and documented the findings in handwritten notes. All 10 students reported that there is no official ground-booking process. Students generally go to the ground and play if it is available. If other students are already playing, they either join the ongoing game or wait until it finishes.
 
-The investigator subsequently discussed the proposed solution with a friend who heads the sports club. The sports-club head agreed that a digital booking platform would be helpful.
+The investigator also discussed the proposed solution with a friend who heads the sports club. The sports-club head agreed that a digital booking platform would be helpful.
 
-Based on these findings, this report proposes a digital sports ground booking platform through which students can check availability and book a ground for a maximum of one hour per booking. The platform would make scheduled use more predictable, reduce uncertainty about availability and provide a transparent way to coordinate access across multiple sports.
+Based on these findings, this report proposes a digital sports ground booking platform that enables students to view availability and reserve a ground for a maximum of one hour per booking. The sports-club team would coordinate ground availability, manage closures during tournaments and handle operational exceptions.
 
-The proposal is intended to improve the current informal process, not to claim that students currently follow an official booking procedure. The platform would require appropriate coordination with the sports club before implementation.
+The proposal also defines functional requirements, access rules, synthetic test cases, risks and an evaluation plan. It distinguishes the findings collected during the investigation from proposed features and outcomes that still need to be tested.
+
+The recommended next step is to validate the booking and access policies with the sports club, develop a limited prototype and evaluate whether it improves coordination without introducing excessive administrative work.
 
 ## 2. Investigation Objective and Scope
 
@@ -26,27 +32,29 @@ To investigate the existing process through which students obtain access to spor
 
 ### 2.2 Scope
 
-The investigation covers:
-- Informal access to sports grounds.
+The investigation and proposal cover:
+
+- The existing informal process for accessing sports grounds.
 - How students determine whether a ground is available.
-- What students do when a ground is already occupied.
+- What students do when a ground is occupied.
 - The absence of an official booking process, as reported by the interviewed students.
-- A proposed digital booking workflow with a maximum booking duration of one hour.
-- Coordination and oversight by the sports club.
+- A proposed digital booking workflow with a maximum duration of one hour.
+- Sports-club coordination, tournament closures and dispute handling.
+- Functional requirements, test scenarios and a plan for evaluating the proposed system.
 
 The sports covered include football, basketball, volleyball, cricket and other activities that use campus sports grounds.
 
-### 2.3 Investigation method
+### 2.3 Investigation Method
 
-The investigator conducted informal conversations with 10 students over three days, from 21 to 24 October 2026, and recorded the findings in handwritten notes. The conversations focused on how students know whether a ground is available and what they do when other students are already playing.
+The investigator conducted informal conversations with 10 students over three days, between 21 and 24 October 2026, and recorded the findings in handwritten notes. The conversations focused on how students know whether a ground is available and what they do when other students are already playing.
 
 After these conversations, the investigator discussed the proposed digital booking platform with a friend who heads the sports club. The sports-club head agreed that such a platform would be helpful.
 
-This was an informal, exploratory investigation rather than a formal campus-wide survey or an audit of institutional records.
+This was an informal, exploratory investigation rather than a formal campus-wide survey or an audit of institutional records. Individual conversation timestamps and verbatim quotations are not presented because they are not required to substantiate the aggregate findings.
 
 ## 3. Current-State Workflow
 
-### 3.1 Observed process
+### 3.1 Observed Process
 
 The current process is informal and based on students physically checking the ground.
 
@@ -56,9 +64,9 @@ The current process is informal and based on students physically checking the gr
 4. If other students are already playing, they either join the ongoing game or wait until it finishes.
 5. Once the ground becomes available, the next group starts playing.
 
-There is no official booking process according to all 10 students interviewed.
+According to all 10 students interviewed, there is no official booking process.
 
-### 3.2 Current workflow diagram
+### 3.2 Current Workflow Diagram
 
 ```text
 Student wants to play
@@ -69,23 +77,24 @@ Goes to the sports ground
         v
 Is the ground available?
         |
-   +----+----+
-   |         |
-  Yes        No
-   |         |
-   |         v
-   |   Join the ongoing game or wait until it finishes
-   |         |
-   |         v
-   |   Ground becomes available
-   |         |
-   +----+----+
+    +---+---+
+    |       |
+   Yes      No
+    |       |
+    |       v
+    |   Join the ongoing game
+    |   or wait until it finishes
+    |       |
+    |       v
+    |   Ground becomes available
+    |       |
+    +---+---+
         |
         v
-  Play the sport
+   Play the sport
 ```
 
-### 3.3 Evidence summary
+### 3.3 Evidence Summary
 
 | Evidence ID | Evidence collected | Finding |
 |---|---|---|
@@ -93,217 +102,368 @@ Is the ground available?
 | E02 | Student accounts of the existing access process | Students generally go to the ground and play if it is available. |
 | E03 | Student accounts of occupied grounds | Students either join the ongoing game or wait until it finishes. |
 | E04 | Discussion with a friend who heads the sports club | The sports-club head agreed that a digital booking platform would be helpful. |
-| E05 | Investigator's proposed solution | An app allowing students to book a ground for a maximum of one hour per booking. |
+| E05 | Investigator's proposed solution | An application allowing students to book a ground for a maximum of one hour per booking. |
 
-The student conversations were recorded in handwritten notes. The findings above summarize the evidence collected; they are not fabricated direct quotations.
+The student conversations were recorded in handwritten notes. E01–E03 summarize the aggregate findings from those conversations; they should not be interpreted as three separate sets of interviews. E05 is a proposed solution, not an observed finding.
+
+### 3.4 Evidence Limitations
+
+The investigation did not measure average waiting time, the number of unsuccessful visits, booking demand by sport or the frequency of disputes. It also did not include a formal campus-wide survey.
+
+Consequently, the findings establish the reported process among the interviewed students but do not establish how frequently availability problems occur across the entire campus.
 
 ## 4. Problem Identification
 
-The current process depends on students physically visiting a ground to determine whether they can play. Because there is no official booking process, students cannot rely on a centralized reservation record to see whether a particular ground or time slot has already been allocated.
+The current process depends on students physically visiting a ground to determine whether they can play. Since the interviewed students reported no official booking process, students cannot rely on a centralized reservation record to determine whether a particular ground or time slot has been allocated.
 
-This creates three potential workflow problems:
+Three potential workflow problems emerge:
 
 1. **Uncertain availability:** Students may not know whether a ground will be free when they arrive.
 2. **Uncoordinated access:** Groups resolve occupancy informally by joining an ongoing game or waiting for it to finish.
-3. **Lack of scheduled allocation:** Students do not have an official booking mechanism through which they can reserve a defined period in advance.
+3. **Lack of scheduled allocation:** Students do not have an official mechanism for reserving a defined period in advance.
 
-These findings establish an opportunity to improve coordination. The investigation did not measure average waiting time, the number of unsuccessful visits or the amount of time lost, so the scale of the impact has not been quantified.
+A digital booking platform could provide a shared schedule and make reservations visible to students and authorized sports-club representatives.
+
+However, software alone cannot resolve every access issue. The sports club must agree on how confirmed reservations interact with ongoing games, tournament closures and students who arrive without a booking.
 
 ## 5. Proposed Solution: Digital Sports Ground Booking Platform
 
 ### 5.1 Overview
 
-Develop a digital application that enables students to view ground availability and reserve a ground for a maximum of one hour per booking.
+Develop a digital application through which students can:
 
-The platform would introduce a structured scheduling process while preserving the existing informal process until the sports club approves and adopts the new system.
+- View sports grounds and their availability.
+- Select a sport, ground, date and time.
+- Reserve an available slot for a maximum of one hour.
+- Receive a booking confirmation.
+- Review or cancel their reservations according to the approved policy.
+- Access the designated sports-club contact for complaints or booking disputes.
 
-### 5.2 Proposed booking workflow
+The sports-club team would maintain the schedule, coordinate tournament closures and resolve operational exceptions.
+
+The platform is a proposal. It has not been represented as a deployed or tested application.
+
+### 5.2 Proposed Booking Workflow
 
 1. **Open the application:** A student accesses the sports ground booking platform.
-2. **Select a sport and ground:** The student chooses the required sport and the corresponding available ground.
-3. **View availability:** The application displays the ground's available and booked time slots.
-4. **Select a time slot:** The student selects a suitable date and start time.
-5. **Validate the request:** The application verifies that the requested slot is available and that the booking duration does not exceed one hour.
-6. **Confirm the booking:** If the request passes validation, the application records the reservation and displays a confirmation.
-7. **Use the ground:** The student or group uses the ground during the reserved period, subject to the rules established by the sports club.
-8. **Release the slot:** After the booking ends or is cancelled, the slot becomes available according to the platform's rules.
+2. **Select a sport and ground:** The student chooses the required sport and corresponding ground.
+3. **View availability:** The application displays available slots, confirmed bookings and authorized closures.
+4. **Select a time slot:** The student selects a date and start time.
+5. **Validate the request:** The application checks that the required details are present, the duration does not exceed one hour, the slot is available and no authorized closure applies.
+6. **Confirm the booking:** If validation succeeds, the application records the reservation and displays a confirmation.
+7. **Use the ground:** The student or group uses the ground during the reserved period, subject to the access policy approved by the sports club.
+8. **Complete or cancel:** At the end of the reservation, or after an eligible cancellation, the slot becomes available according to the platform's rules.
 
-This workflow is the proposed design; it is not a description of a system that has already been deployed.
-
-### 5.3 Proposed workflow diagram
+### 5.3 Proposed Workflow Diagram
 
 ```text
 Student opens the booking application
-        |
-        v
-Selects the sport and ground
-        |
-        v
-Views available and booked slots
-(closures entered by the sports club are shown as unavailable)
-        |
-        v
-Selects date and start time (maximum one hour)
-        |
-        v
-Application validates the request:
- - slot is free (no overlapping confirmed booking)
- - duration is no longer than one hour
- - slot is not inside an authorized closure
-        |
-   +----+----------------+
-   |                     |
-  Valid               Not valid
-   |                     |
-   |                     v
-   |        Application shows the reason
-   |        and the student picks another slot
-   |        (returns to "Selects date and start time")
-   v
-Booking confirmed and recorded
-(date, ground, start time, end time, status)
-        |
-        +--------------------------+
-        |                          |
-        v                          v
-Student uses the ground      Student cancels the booking
-during the reserved hour     before it starts
-        |                          |
-        v                          v
-Booking ends  ------>  Slot is released and shown as available
+                 |
+                 v
+       Selects sport and ground
+                 |
+                 v
+        Views ground availability
+                 |
+                 v
+       Selects date and start time
+         (maximum duration: 1 hour)
+                 |
+                 v
+       Application validates request
+       - Required details are present
+       - Slot is available
+       - No overlapping booking exists
+       - No authorized closure applies
+                 |
+           +-----+-----+
+           |           |
+         Valid       Invalid
+           |           |
+           v           v
+   Booking confirmed  Show error and
+   and recorded       request correction
+           |           |
+           |           +----> Select another
+           |                  slot or correct
+           |                  the request
+           v
+     Student uses ground
+           |
+           v
+ Booking ends or is cancelled
+           |
+           v
+     Slot is released
 
-Sports club representative (separate path):
- - enters closures and updates ground availability
- - resolves disputes and exceptional cases
- - if the application is unavailable, follows the fallback procedure
-   agreed with the sports club
+Separate sports-club workflow:
+- Maintain ground schedules
+- Close slots during tournaments
+- Update authorized restrictions
+- Handle complaints and disputes
+- Coordinate fallback arrangements
+  if the application is unavailable
 ```
 
-### 5.4 Proposed booking rules
+### 5.4 Proposed Booking and Access Rules
 
-- Each booking may last for a maximum of one hour.
-- A ground cannot have two overlapping confirmed bookings.
-- Only available slots can be confirmed.
-- The application should clearly display the date, ground, start time and end time for every booking.
-- Students should be able to view their booking status and cancel a booking according to the rules established by the sports club.
-- The platform should display any ground closures or restrictions entered by an authorized sports-club representative.
-- The sports club should be able to manage ground availability and resolve disputes or exceptional cases.
-- Booking limits, cancellation deadlines, repeat bookings and any priority rules should be finalized with the sports club before implementation.
+The following rules are proposed for approval before implementation.
 
-### 5.5 Handling existing games and informal use
+1. **Maximum duration:** Each booking may last no longer than one hour.
+2. **No overlapping reservations:** The same ground cannot have two overlapping confirmed bookings.
+3. **Required details:** A booking must contain the student identifier or approved account, sport, ground, date, start time and end time.
+4. **Confirmation:** A reservation is considered confirmed only after the system successfully records it.
+5. **Cancellation:** Students may cancel according to the policy approved by the sports club.
+6. **Schedule administration:** Only authorized sports-club representatives may create official closures or modify ground availability.
+7. **Tournament closures:** The sports-club team must be informed of tournaments in advance and must close affected grounds or slots in the application for the relevant period.
+8. **Disputes:** The application should provide the sports-club president's contact number, subject to permission to publish it, so students can call or WhatsApp with their booking confirmation as supporting evidence.
+9. **System failure:** If the application is unavailable, students should follow a fallback procedure agreed upon with the sports club rather than relying on an unverified booking status.
+10. **Policy approval:** Booking limits, cancellation deadlines, repeat bookings, no-show handling and any priority rules must be finalized with the sports club.
 
-The proposed platform must account for the existing practice of students joining games or waiting for an occupied ground to become free.
+### 5.5 Handling Existing Games and Walk-Up Access
 
-Before launch, the sports club should establish how scheduled bookings interact with walk-up access. For example, it must decide whether a confirmed booking takes priority over an informal game and how students should handle a conflict between an ongoing game and the next scheduled slot.
+The proposed application must account for the existing practice of students joining games or waiting for an occupied ground to become free.
 
-The application should communicate these rules clearly. It should not automatically remove students from an ongoing game or claim that a ground is available unless the applicable scheduling rules support that status.
+The proposed access policy is:
 
-### 5.6 Sports-club coordination
+- Students should check the application before using a ground.
+- A student with a valid confirmed booking should be able to show the booking confirmation when arriving for the reserved slot.
+- If another group is using the ground during a valid reserved slot, the proposed policy is for the group currently using the ground to leave so the booking holder can use the reserved time.
+- Complaints or disagreements should be referred to the sports club, with the booking confirmation used as supporting evidence.
+- Students should not be expected to resolve serious disputes themselves.
 
-The sports-club head's feedback supports the usefulness of exploring this proposal. Before implementation, the sports club should confirm the booking policy, authorized administrators, ground list, slot schedule, exception handling and process for handling disputes.
+This policy changes the current informal arrangement and therefore requires explicit approval and communication by the sports club before launch. The application cannot enforce this rule physically; operational coordination is still necessary.
 
-The sports club would be the proposed operational stakeholder responsible for coordinating the platform with actual ground usage.
+### 5.6 Sports-Club Responsibilities
+
+The sports club would be the proposed operational owner of the platform.
+
+Its responsibilities would include:
+
+- Maintaining the list of bookable grounds and approved time slots.
+- Reviewing tournament schedules and closing affected slots in advance.
+- Keeping availability information accurate.
+- Authorizing representatives who can change the schedule.
+- Handling complaints and booking conflicts.
+- Communicating the booking and walk-up access policies.
+- Maintaining a fallback process for technical failures.
+- Reviewing pilot results and deciding whether the platform should continue or change.
+
+The sports-club head's feedback supports exploring the proposal. It does not, by itself, constitute formal institutional approval or confirmation that the sports club has accepted these responsibilities.
 
 ## 6. Functional Requirements
 
 | ID | Requirement | Purpose |
 |---|---|---|
-| FR01 | Display the available sports grounds | Allows students to identify suitable grounds |
-| FR02 | Display available and booked time slots | Reduces uncertainty about scheduled use |
-| FR03 | Allow students to select a sport, ground, date and time | Captures the intended booking |
-| FR04 | Enforce a maximum booking duration of one hour | Implements the proposed booking limit |
-| FR05 | Prevent overlapping confirmed bookings for the same ground | Avoids conflicting reservations |
-| FR06 | Provide booking confirmation and status | Gives students a clear record of their reservation |
-| FR07 | Allow cancellation under the approved cancellation rules | Enables unused slots to be released |
-| FR08 | Allow authorized sports-club representatives to update availability | Keeps the schedule aligned with approved restrictions |
-| FR09 | Display official ground closures and relevant restrictions | Prevents booking during unavailable periods |
-| FR10 | Maintain a record of booking and schedule changes | Supports accountability and dispute resolution |
+| FR01 | Display available sports grounds | Helps students identify suitable grounds. |
+| FR02 | Display available, booked and closed time slots | Reduces uncertainty about scheduled use. |
+| FR03 | Allow selection of sport, ground, date and time | Captures the intended booking. |
+| FR04 | Enforce a maximum booking duration of one hour | Implements the proposed booking limit. |
+| FR05 | Prevent overlapping confirmed bookings for the same ground | Avoids conflicting reservations. |
+| FR06 | Provide booking confirmation and status | Gives students a clear record of their reservation. |
+| FR07 | Allow cancellation under the approved policy | Enables unused slots to be released. |
+| FR08 | Allow authorized representatives to update availability | Keeps the schedule aligned with approved restrictions. |
+| FR09 | Display tournament closures and other official restrictions | Prevents booking during unavailable periods. |
+| FR10 | Maintain a record of bookings, cancellations and schedule changes | Supports accountability and dispute resolution. |
+| FR11 | Display an approved sports-club contact method | Provides an escalation route for complaints. |
+| FR12 | Handle failed submissions without falsely confirming a booking | Reduces uncertainty and duplicate submissions. |
 
 These are proposed functional requirements. They should be validated with the sports club before development.
 
-## 7. Acceptance Tests
+## 7. Synthetic Test Cases and Acceptance Criteria
 
-The following tests define expected behaviour for a future prototype. They are test cases, not claims of completed execution.
+The following are **synthetic test cases** describing expected behaviour for a future prototype. They are designed scenarios, not evidence from actual users and not tests that have been executed against a working application.
 
-| Test ID | Scenario | Expected result |
-|---|---|---|
-| T01 | Student requests an available 60-minute slot | The application accepts the request if all other rules are satisfied and confirms the booking. |
-| T02 | Student requests a slot longer than 60 minutes | The application rejects the duration or asks the student to choose a valid slot no longer than one hour. |
-| T03 | Two students request overlapping times on the same ground | The application prevents both requests from becoming confirmed for the same overlapping period. |
-| T04 | Student attempts to book a ground during an authorized closure | The application prevents the booking and displays the ground's unavailable status. |
-| T05 | A student cancels a confirmed booking | The application records the cancellation and releases the slot according to the approved policy. |
+| Test ID | Scenario | Expected result | Recovery or next step |
+|---|---|---|---|
+| T01 — Normal request | A student supplies all required details and requests an available 60-minute slot. | The application confirms the booking if the slot remains available and all rules are satisfied. | Display the confirmation and booking details. |
+| T02 — Missing information | A student submits a request without a required field, such as the ground, date or start time. | The application rejects the incomplete request and identifies the missing information. | Ask the student to complete the required fields and resubmit. |
+| T03 — Duplicate or conflicting booking | Two students request overlapping times on the same ground, or a student submits the same request twice. | Only one conflicting reservation may become confirmed. A repeated submission must not create a second unintended booking. | Show that the slot is no longer available or display the existing booking status; allow selection of another slot. |
+| T04 — Unauthorized request | A student attempts to change official ground availability, or requests a slot during a tournament closure. | The system denies unauthorized schedule changes and prevents reservations during authorized closures. | Direct the student to choose another available slot. Refer exceptional access requests to an authorized sports-club representative. |
+| T05 — Failed step or technical error | The application fails during booking submission, or the connection is interrupted before the student sees a result. | The application must not display a false confirmation or create duplicate reservations when the student retries. | The student checks booking status before retrying. If the status remains unclear, the sports club verifies the record and uses the agreed fallback process. |
 
-Before deployment, each test should be run against the implemented application and its actual result recorded. No test is reported as passed in this investigation.
+### 7.1 Acceptance Criteria
+
+The prototype should meet these criteria before a pilot:
+
+- A valid request for an available slot of up to 60 minutes can be recorded and confirmed.
+- Requests exceeding 60 minutes are rejected.
+- Missing required details produce a clear validation message.
+- Conflicting confirmed bookings cannot be created for the same ground and time.
+- Students cannot create official closures or change administrative schedules without authorization.
+- Slots closed for tournaments cannot be booked.
+- A failed submission does not result in an incorrect confirmation or unintended duplicate.
+- Booking status can be checked and a cancellation is reflected in the schedule.
+- The approved sports-club contact and fallback instructions are available to students.
+
+Each test must be run against the implemented application, with the actual result recorded as pass or fail. No test is reported as passed in this investigation.
 
 ## 8. Expected Benefits and Evaluation Plan
 
-### 8.1 Expected benefits
+### 8.1 Expected Benefits
 
 The proposed platform is intended to:
+
 - Make scheduled ground availability easier to check.
 - Allow students to plan sports activities before arriving.
-- Reduce conflicts caused by overlapping reservations.
-- Provide a clear one-hour maximum booking period.
+- Reduce uncertainty about whether a ground is reserved.
+- Prevent conflicting reservations through validation.
+- Establish a clear one-hour maximum booking period.
 - Improve coordination between students and the sports club.
-- Create a record of reservations, cancellations and authorized closures.
+- Provide a record that can support complaint resolution.
+- Make tournament-related closures visible in the schedule.
 
 These are expected benefits, not measured outcomes.
 
-### 8.2 Evaluation metrics
+### 8.2 Evaluation Metrics
 
-A pilot should measure:
+A limited pilot should track:
+
 - Number of bookings made per week.
 - Percentage of bookings successfully completed.
 - Number of overlapping booking attempts prevented.
-- Number of students who arrive and find that a confirmed slot cannot be used.
+- Number of students who arrive and cannot use a confirmed slot.
 - Number of cancellations and unused bookings.
 - Student feedback on ease of use.
-- Administrative effort required to maintain the schedule.
+- Number of booking complaints and time required to resolve them.
+- Administrative effort required to maintain schedules and closures.
+- Application failures and booking-status discrepancies.
 
-Waiting time and unsuccessful visits should be recorded before and during a pilot if the sports club wants to determine whether the application reduces them.
+Waiting time and unsuccessful visits should be recorded before and during the pilot if the sports club wants to determine whether the application reduces them.
 
-### 8.3 Cost-effectiveness
+### 8.3 Net Time-Saving Estimate
 
-The initial implementation should prioritize core features: ground selection, availability display, one-hour booking validation, conflict prevention and confirmation.
+Net time savings should include not only the time saved by students or staff but also the extra time needed to operate the application.
 
-The platform's value should be assessed against the cost of development, hosting, maintenance and sports-club administration. No monetary savings or return on investment are claimed because no cost or baseline performance data were collected during this investigation.
+**Formula:**
+
+Net time saved per month = Baseline monthly effort − Post-implementation monthly effort
+
+Post-implementation effort should include schedule maintenance, booking administration, cancellations, support, complaint handling and technical maintenance where applicable.
+
+**Illustrative example only — not measured campus data:**
+
+| Activity | Monthly effort |
+|---|---:|
+| Estimated effort under the existing process | 300 minutes |
+| Estimated effort after introducing the platform, including administration and support | 180 minutes |
+| Illustrative net time saved | 120 minutes per month |
+
+The figures above are hypothetical values used to demonstrate the calculation. They are not estimates derived from the 10 student conversations and must not be presented as actual savings.
+
+The pilot should collect real baseline and post-implementation data before making a claim about time saved. Development effort and implementation costs should also be evaluated separately.
+
+### 8.4 Cost-Effectiveness
+
+The initial implementation should prioritize core functionality: ground selection, availability display, one-hour booking validation, conflict prevention, confirmation, schedule administration and complaint escalation.
+
+The platform's value should be assessed against development, hosting, maintenance and administrative costs. A simple application using standard scheduling rules and database constraints may be sufficient for the initial use case.
+
+No monetary savings, return on investment or measured efficiency improvement is claimed because no baseline performance or cost data were collected.
+
+### 8.5 Role of AI in This Proposal
+
+AI was used as an assistance tool for brainstorming, organizing the proposal and structuring the report. The investigation findings themselves are based on the reported student conversations and the discussion with the sports-club head, not on AI-generated evidence.
+
+AI is not necessary for the core booking workflow. Ground selection, duration validation, availability checks, authorization, conflict prevention and booking confirmation can be implemented through ordinary application logic and database constraints.
+
+Adding AI to the booking process would introduce complexity without a demonstrated need. An optional future feature, such as a question-answering assistant for booking rules, could be considered only if user feedback shows that it would provide value.
 
 ## 9. Risks and Mitigations
 
 | Risk | Mitigation |
 |---|---|
-| Students continue using the informal process | Explain the booking rules and introduce the platform through the sports club |
-| Students arrive for an ongoing game despite having a booking | Define and communicate the policy for conflicts between bookings and ongoing games |
-| Two students attempt to book the same slot | Validate availability when confirming the booking |
-| Schedule information is outdated | Restrict schedule updates to authorized representatives and record the last update |
-| Students make bookings they do not use | Establish reasonable cancellation and no-show rules with the sports club |
-| Demand exceeds the number of available slots | Use transparent allocation rules and review usage data |
-| Technical failure prevents access to booking information | Establish a fallback procedure through the sports club |
-| Administrative effort becomes excessive | Start with a limited pilot and evaluate maintenance effort before expanding |
+| Students continue using the informal process | Explain the booking rules and introduce the platform through the sports club. |
+| A student arrives while another group is using the ground | Establish and communicate the approved policy for conflicts between confirmed bookings and ongoing games. |
+| Two students attempt to book the same slot | Check availability when confirming a booking and enforce conflict prevention in the database. |
+| Schedule information is outdated | Restrict schedule updates to authorized representatives and retain a record of changes. |
+| Tournament closures are not entered in time | Establish an advance notification process between tournament organizers and the sports-club team. |
+| Students make bookings they do not use | Establish reasonable cancellation and no-show rules with the sports club. |
+| Unauthorized users modify official schedules | Apply authentication and role-based access control. |
+| A booking conflict becomes a dispute | Provide the approved sports-club contact and a process for checking booking confirmation. |
+| Technical failure prevents access to booking information | Establish a fallback procedure and avoid treating an unverified request as confirmed. |
+| Administrative effort becomes excessive | Start with a limited pilot and compare the additional effort with the measured benefits. |
+| Students are unaware of the new rules | Communicate the policy clearly before launch and display it in the application. |
 
-## 10. Limitations
+## 10. Limitations and Conditions for Reconsideration
 
-The investigation involved informal conversations with 10 students over three days and one discussion with a friend who heads the sports club. The student findings were recorded in handwritten notes.
+### 10.1 Investigation Limitations
 
-The investigation did not include a formal campus-wide survey, measured waiting times, booking-system usage statistics, a cost analysis, a deployed application or executed software tests.
+The investigation involved informal conversations with 10 students over three days and one discussion with a friend who heads the sports club. Student findings were recorded in handwritten notes.
+
+The investigation did not include:
+
+- A formal campus-wide survey.
+- Measured waiting times or unsuccessful visits.
+- Booking-demand statistics by sport or ground.
+- A detailed cost analysis.
+- A deployed application.
+- Executed software tests.
+- Formal institutional approval of the proposed access rules.
 
 The evidence supports the conclusion that the interviewed students described ground access as informal and that the sports-club head considered a digital booking platform helpful. It does not establish that every student experiences the same problems or that the proposed application will necessarily reduce waiting time.
 
-The proposed booking workflow, one-hour limit and functional requirements are design recommendations that require operational agreement with the sports club.
+### 10.2 When Should the Proposal Be Changed or Abandoned?
 
-## 11. Conclusion
+The proposal should be reviewed after consultation or a pilot if any of the following conditions occur:
+
+1. Students rarely experience availability conflicts, making a booking system unnecessary.
+2. The existing walk-up process is considered adequate by students and the sports club.
+3. The sports club cannot agree on how confirmed bookings interact with ongoing games.
+4. Tournament schedules and ground availability cannot be maintained accurately.
+5. Student adoption is too low for the application to provide reliable scheduling information.
+6. The time spent administering the platform exceeds the time and effort saved.
+7. The number of disputes or failed bookings increases after introduction.
+8. Development, hosting and maintenance costs are disproportionate to the demonstrated benefits.
+
+Possible responses include simplifying the workflow, changing booking policies, running a smaller pilot or discontinuing the application if the evidence does not justify it.
+
+
+## 11. Conclusion and Recommended Next Steps
 
 The investigation found that all 10 students interviewed described a walk-up process rather than an official ground-booking system. Students generally go to the ground and play if it is available; if others are playing, they either join them or wait until the game finishes. The sports-club head agreed that a digital booking platform would be helpful.
 
-The recommended next step is to develop and evaluate a small prototype that displays ground availability, allows bookings of up to one hour, prevents overlapping confirmed reservations and communicates booking status clearly.
+The proposed platform would allow students to view availability, book a ground for up to one hour, receive confirmation and refer disputes to the sports club. The sports-club team would coordinate availability and close affected slots during tournaments.
 
-The sports club should validate the allocation rules and the relationship between scheduled bookings and existing walk-up play before a pilot begins. The pilot should then measure actual usage, booking conflicts, student feedback and administrative effort to determine whether the platform improves ground access.
+The next steps are:
 
-## Appendix: Supporting Evidence
+1. Present the proposed workflow and rules to the sports club.
+2. Obtain agreement on booking priority, walk-up access, tournament closures, cancellations and dispute handling.
+3. Confirm the list of grounds, authorized administrators and permitted booking periods.
+4. Develop a small prototype focused on availability, booking validation, conflict prevention and confirmation.
+5. Execute and document the synthetic acceptance tests.
+6. Run a limited pilot if the relevant stakeholders approve it.
+7. Compare baseline and pilot data to evaluate usage, conflicts, administrative effort and student feedback.
+8. Continue, modify or discontinue the system based on the results.
+
+The proposal should be considered successful only if a pilot demonstrates practical value and the sports club can maintain the schedule and access rules reliably.
+
+---
+
+## Appendix A: Supporting Evidence
 
 The investigation is supported by:
-- Handwritten notes from conversations with 10 students conducted over the three-day investigation period.
-- Notes from the discussion with the sports-club head.
-- The proposed workflow and acceptance-test plan documented in this report.
 
-No individual student names or fabricated quotations are included.
+- Handwritten notes from conversations with 10 students conducted during the investigation period.
+- Notes from the discussion with the sports-club head.
+- The current-state workflow documented in this report.
+- The proposed booking workflow, functional requirements and synthetic acceptance-test plan.
+
+No individual student names or fabricated quotations are included. The evidence summary records aggregate findings rather than attributing unsupported statements to specific students.
+
+## Appendix B: Items Requiring Confirmation Before Implementation
+
+| Item | Required confirmation |
+|---|---|
+| Ground inventory | Which grounds and sports can be booked? |
+| Booking schedule | Which days and times are available for recreational use? |
+| Booking limit | Is the one-hour maximum approved? |
+| Booking priority | Must a group using a ground leave when a valid booking holder arrives? |
+| Tournament handling | Who informs the sports club, and how far in advance must closures be entered? |
+| Administrative access | Which sports-club representatives can update the schedule? |
+| Complaints | May the sports-club president's contact number be published in the application? |
+| Cancellations and no-shows | What rules apply to unused bookings and late cancellations? |
+| Technical failure | What fallback process should students follow if the application is unavailable? |
+| Pilot approval | Who authorizes the pilot, and how will its results be evaluated? |
+
+These items are unresolved implementation decisions, not facts established by the investigation.
