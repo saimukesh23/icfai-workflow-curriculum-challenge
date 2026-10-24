@@ -11,7 +11,7 @@ This repository contains two tasks: an investigation of the campus sports-ground
 
 | Task | Description | Files |
 |---|---|---|
-| Task 1 — Workflow Investigation | Investigates the existing sports-ground access process and presents a digital booking MVP. | [Task 1 folder](./task-1-workflow/) · [Task 1 report](./task-1-workflow/task1.md) |
+| Task 1 — Workflow Investigation | Investigates the existing sports-ground access process and presents a digital booking MVP. | [Task 1 folder](./task-1-workflow/) · [Task 1 report](./task-1-workflow/report-task-1.md) |
 | Task 2 — Curriculum and Lab Audit | Analyzes curriculum information, selected job requirements, practical-learning gaps, and proposed improvements. | [Task 2 folder](./task-2-curriculum-audit/) · [Task 2 report](./task-2-curriculum-audit/report-task-2.md) |
 
 **Live Task 1 application:** [https://ground-booking.streamlit.app/](https://ground-booking.streamlit.app/)
