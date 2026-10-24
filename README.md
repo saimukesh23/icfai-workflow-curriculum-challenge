@@ -92,6 +92,3 @@ AI assistance is not evidence that code executes correctly, tests pass, a model 
 
 **Submission date:** 24 October 2026.
 
-The named release and full commit URL identify the exact revision intended for review. The final submission receipt and submission time should be retained from the submission portal. A receipt confirms that the repository URL was saved; it does not verify repository access, file completeness, or review completion.
-
-The repository is public and should contain only material permitted for public release. No passwords, access tokens, private student information, or sensitive institutional material should be included.
