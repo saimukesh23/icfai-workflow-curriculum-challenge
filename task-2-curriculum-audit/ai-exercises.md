@@ -291,7 +291,22 @@ These five exercises demonstrate different ways AI can support learning:
 The main lesson is that an AI-generated answer is a starting point, not proof of correctness. Verification should be specific to the subject: dry-running code, checking SQL results against sample records, recalculating formulas, reviewing model-evaluation methodology and tracing generated claims back to their source.
 
 These exercises support the curriculum proposal by illustrating how assessment can require both AI-assisted work and independent verification. They do not establish that the current courses lack these activities; that conclusion would require reviewing the detailed course syllabi and assessments.
+## Cross-Exercise Verification and Human Review
 
+**Model/date:** ChatGPT GPT-6, 24 October 2026.
+
+**Verification method:** The exercises were reviewed using code-logic checks and boundary examples, SQL query semantics against the supplied synthetic rows, independent metric calculations, leakage-control principles, and comparison of the generated booking-policy answer with the supplied source statements.
+
+**Corrections and limitations identified:**
+- The balanced-brackets exercise is limited to the supplied examples; broader testing should include empty input, unmatched closing brackets, and mixed bracket types.
+- The booking SQL query identifies repeat confirmed bookings, not scheduling conflicts. Conflict detection requires booking start and end times and an overlap check.
+- The classification metrics were recalculated from the supplied confusion-matrix counts.
+- The deep-learning exercise describes a corrected evaluation workflow; it does not claim that a model was trained or experimentally evaluated.
+- The generative-AI exercise must leave unspecified policy details unanswered rather than infer rules not present in the source.
+
+**Human checking still required:** Run the code and SQL against a test environment, confirm arithmetic independently, review the preprocessing and evaluation pipeline, and verify every policy claim against the source. For academic use, the student should be able to explain the reasoning and reproduce the checks.
+
+**Evidence integrity:** This record documents the checks described above. It does not claim execution of external systems, a university database, or a model-training experiment where none was performed.
 ## Reproducibility record
 
 | Field | Record |
